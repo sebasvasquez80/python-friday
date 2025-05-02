@@ -25,5 +25,4 @@ st.markdown("""
 - Aplicar estos conocimientos en ejemplos prácticos
 """)
 
-st.header("Solución")
-
+st.header("Solución actividad 2")
