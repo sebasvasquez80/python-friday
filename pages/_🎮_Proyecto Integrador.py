@@ -24,7 +24,67 @@ df.rename(columns={
 
 # Mostrar tabla completa o una parte
 st.subheader("Vista previa del dataset")
-st.dataframe(df)  
+st.dataframe(df.head(3)) 
+
+# 📊 Exploración de datos
+st.header("Exploración de Datos del Dataset")
+
+st.subheader("Dimensiones del dataset (filas, columnas)")
+st.write(df.shape)
+
+st.subheader("Nombres de las columnas")
+st.write(df.columns.tolist())
+
+st.subheader("Tipos de datos por columna")
+st.write(df.dtypes)
+
+st.subheader("Primeros registros")
+st.write(df.head())
+
+st.subheader("Últimos registros")
+st.write(df.tail())
+
+st.subheader("Cantidad total de juegos registrados")
+st.write(len(df))
+
+st.subheader("Cantidad de valores nulos por columna")
+st.write(df.isnull().sum())
+
+st.subheader("Columnas con valores únicos")
+st.write({col: df[col].nunique() for col in df.columns})
+
+st.subheader("Juegos más vendidos globalmente")
+st.write(df[['Nombre', 'Ventas_GLOBALES']].sort_values('Ventas_GLOBALES', ascending=False).head(3))
+
+st.subheader("Consolas (plataformas) disponibles sin repetir")
+st.write(sorted(df['Plataforma'].unique()))
+
+st.subheader("Cantidad de juegos por plataforma")
+st.write(df['Plataforma'].value_counts())
+
+st.subheader("Géneros disponibles sin repetir")
+st.write(sorted(df['Género'].unique()))
+
+st.subheader("Cantidad de juegos por género")
+st.write(df['Género'].value_counts())
+
+st.subheader("Editoriales (publishers) más comunes")
+st.write(df['Editor'].value_counts().head(10))
+
+st.subheader("Cantidad de juegos por editorial (top 10)")
+st.write(df['Editor'].value_counts().head(10))
+
+st.subheader("Años con más lanzamientos")
+st.write(df['Año'].value_counts().sort_index(ascending=True).tail(10))
+
+st.subheader("Año mínimo y máximo de lanzamiento")
+st.write(f"Año mínimo: {int(df['Año'].min())}, Año máximo: {int(df['Año'].max())}")
+
+st.subheader("Ventas globales promedio por género")
+st.write(df.groupby('Género')['Ventas_GLOBALES'].mean().sort_values(ascending=False))
+
+st.subheader("Ventas globales promedio por plataforma")
+st.write(df.groupby('Plataforma')['Ventas_GLOBALES'].mean().sort_values(ascending=False))
 
 if 'platform_filter' not in st.session_state:
     st.session_state['platform_filter'] = False

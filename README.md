@@ -1,125 +1,109 @@
-# Aplicación Streamlit - Nuevas Tecnologías de Programación
+# Proyecto Integrador - Análisis de Ventas de Videojuegos
 
-Este proyecto es una aplicación web desarrollada con Streamlit que permite visualizar y completar las actividades y evaluaciones del curso de Nuevas Tecnologías de Programación del programa de Desarrollo de Software.
+Este proyecto es una aplicación web interactiva desarrollada con Streamlit que permite explorar y analizar un conjunto de datos sobre ventas de videojuegos. A través de esta herramienta, los usuarios pueden descubrir patrones y tendencias clave en la industria de los videojuegos, como los géneros más populares, las plataformas con mayor demanda y los títulos más exitosos a lo largo del tiempo.
 
-## Características
+## Descripción del Proyecto
 
-- Interfaz de usuario intuitiva y responsive
-- Múltiples páginas organizadas por momentos y actividades
-- Estructura de proyecto organizada y mantenible
-- Secciones específicas para cada actividad y evaluación
+En este proyecto, se utiliza un enfoque basado en datos para analizar estadísticas de ventas globales de videojuegos. Los usuarios pueden aplicar diversos filtros para explorar el dataset y obtener información valiosa sobre:
 
-## Requisitos previos
+- Juegos con ventas globales destacadas.
+- Juegos específicos de plataformas o géneros.
+- Comparaciones entre editores como Nintendo y Sony.
+- Juegos lanzados en plataformas modernas como PS4, Xbox One y PC.
+- Juegos con ventas significativas en regiones específicas como Japón o Norteamérica.
+
+El objetivo es proporcionar una visión profunda del mercado global de videojuegos mediante herramientas de análisis de datos.
+
+## Dataset
+
+El dataset utilizado en esta aplicación proviene de Kaggle y está disponible en el siguiente enlace:  
+[Video Game Sales Dataset](https://www.kaggle.com/datasets/gregorut/videogamesales)
+
+Este dataset contiene información sobre ventas de videojuegos, incluyendo columnas como:
+
+- Nombre del juego
+- Plataforma
+- Año de lanzamiento
+- Género
+- Editor
+- Ventas en diferentes regiones (Norteamérica, Europa, Japón, otras regiones)
+- Ventas globales
+
+## Requisitos Previos
 
 - Python 3.8 o superior
 - pip (gestor de paquetes de Python)
 
 ## Instalación
 
-1. Clona o descarga este repositorio en tu computadora
-
+1. Clona o descarga este repositorio en tu computadora.
 2. Crea un entorno virtual (opcional pero recomendado):
-   ```
+   ```sh
    python -m venv .venv
    ```
-
 3. Activa el entorno virtual:
    - En Windows:
-     ```
+     ```sh
      .venv\Scripts\activate
      ```
    - En macOS/Linux:
-     ```
+     ```sh
      source .venv/bin/activate
      ```
-
 4. Instala las dependencias:
-   ```
+   ```sh
    pip install -r requirements.txt
    ```
 
 ## Uso
 
-Para ejecutar la aplicación:
+Para ejecutar la aplicación, utiliza el siguiente comando en la terminal:
 
-```
-streamlit run Inicio.py
+```sh
+streamlit run pages/12_🎮_Proyecto\ integrador.py
 ```
 
 La aplicación estará disponible en tu navegador en `http://localhost:8501`.
 
-## Estructura del proyecto
+## Funcionalidades Principales
+
+La aplicación incluye los siguientes filtros interactivos para explorar el dataset:
+
+1. **Filtrar por plataforma**: Permite seleccionar una plataforma específica y visualizar los juegos disponibles para ella.
+2. **Juegos con ventas globales > 20M**: Muestra los juegos con ventas globales superiores a 20 millones.
+3. **Juegos de Nintendo en Wii**: Filtra los juegos publicados por Nintendo en la plataforma Wii.
+4. **Juegos publicados por Nintendo o Sony**: Muestra los juegos publicados por estos dos editores.
+5. **Juegos de acción en Xbox 360**: Filtra los juegos del género "Acción" en la plataforma Xbox 360.
+6. **Juegos en plataformas modernas (PS4, Xbox One, PC)**: Muestra los juegos disponibles en estas plataformas.
+7. **Juegos con >1M ventas en Japón**: Filtra los juegos con ventas superiores a 1 millón en Japón.
+8. **Ocultar juegos con <5M en ventas globales**: Oculta los juegos con ventas globales inferiores a 5 millones.
+9. **Juegos lanzados desde 2010**: Muestra los juegos lanzados a partir del año 2010.
+10. **Juegos que NO son de deportes ni carreras**: Excluye los juegos de los géneros "Deportes" y "Carreras".
+11. **Juegos de Nintendo con >2M ventas en Norteamérica**: Filtra los juegos de Nintendo con ventas superiores a 2 millones en Norteamérica.
+
+## Estructura del Proyecto
 
 ```
 ├── .streamlit/            # Configuración de Streamlit
 │   └── config.toml        # Archivo de configuración (tema, servidor, etc.)
 ├── assets/                # Recursos estáticos
-│   ├── foto.jpg           # Foto del estudiante
-│   └── logo-Cesde-2023.svg # Logo de CESDE
-├── data/                  # Carpeta para almacenar datos
+│   └── vgsales.csv        # Dataset de ventas de videojuegos
 ├── pages/                 # Páginas de la aplicación
-│   ├── 1_📌_M2 Actvidad 1.py   # Actividad 1 del Momento 2
-│   ├── 2_📌_M2 Actvidad 2.py   # Actividad 2 del Momento 2
-│   ├── 3_📌_M2 Actvidad 3.py   # Actividad 3 del Momento 2
-│   ├── 4_📌_M2 Actvidad 4.py   # Actividad 4 del Momento 2
-│   ├── 5_📌_M2 Actvidad 5.py   # Actividad 5 del Momento 2
-│   ├── 6_📋_M2 Evaluación.py   # Evaluación del Momento 2
-│   ├── 7_📌_M3 Actvidad 1.py   # Actividad 1 del Momento 3
-│   ├── 8_📌_M3 Actvidad 2.py   # Actividad 2 del Momento 3
-│   ├── 9_📌_M3 Actvidad 3.py   # Actividad 3 del Momento 3
-│   ├── 10_📌_M3 Actvidad 4.py  # Actividad 4 del Momento 3
-│   ├── 11_📌_M3 Actvidad 5.py  # Actividad 5 del Momento 3
-│   └── 12_📋_M3 Evaluación.py  # Evaluación del Momento 3
+│   └── 12_🎮_Proyecto integrador.py  # Página del proyecto integrador
 ├── .gitignore             # Archivos ignorados por Git
-├── Inicio.py              # Punto de entrada de la aplicación
 ├── README.md              # Este archivo
 └── requirements.txt       # Dependencias del proyecto
 ```
 
-## Navegación por la aplicación
+## Dependencias Principales
 
-1. **Página de inicio (Inicio.py)**: Muestra información general del estudiante y del curso.
+- **streamlit**: Framework para crear aplicaciones web interactivas.
+- **pandas**: Manipulación y análisis de datos.
 
-2. **Actividades del Momento 2**: Páginas numeradas del 1 al 5, cada una contiene una actividad específica del Momento 2.
+Consulta el archivo [`requirements.txt`](requirements.txt) para ver la lista completa de dependencias.
 
-3. **Evaluación del Momento 2**: Página 6, contiene la evaluación final del Momento 2.
+## Consejos para el Desarrollo
 
-4. **Actividades del Momento 3**: Páginas numeradas del 7 al 11, cada una contiene una actividad específica del Momento 3.
-
-5. **Evaluación del Momento 3**: Página 12, contiene la evaluación final del Momento 3.
-
-## Personalización
-
-### Información del estudiante
-
-Para personalizar la información del estudiante, edita el archivo `Inicio.py` y modifica los siguientes elementos:
-
-1. Reemplaza la imagen `assets/foto.jpg` con tu propia foto.
-2. Actualiza la información personal (nombre, programa, semestre, enlace al repositorio).
-
-### Completar actividades
-
-Para completar cada actividad o evaluación:
-
-1. Navega a la página correspondiente desde la barra lateral.
-2. Lee la descripción y objetivos de la actividad.
-3. Implementa tu solución en la sección designada.
-4. Guarda los cambios y actualiza la página para ver los resultados.
-
-## Dependencias principales
-
-- streamlit: Framework para crear aplicaciones web interactivas
-- pandas: Manipulación y análisis de datos
-- numpy: Computación numérica
-- matplotlib y seaborn: Visualización de datos
-- plotly: Gráficos interactivos
-
-Consulta el archivo `requirements.txt` para ver la lista completa de dependencias.
-
-## Consejos para el desarrollo
-
-- Utiliza la función `st.help()` para obtener ayuda sobre cualquier función de Streamlit.
+- Utiliza la función [`st.help()`](https://docs.streamlit.io/library/api-reference) para obtener ayuda sobre cualquier función de Streamlit.
 - Consulta la [documentación oficial de Streamlit](https://docs.streamlit.io/) para más información.
-- Utiliza `st.write()` para depurar variables durante el desarrollo.
-- Aprovecha los widgets interactivos de Streamlit para hacer tus actividades más dinámicas.
-
+- Utiliza [`st.write()`](https://docs.streamlit.io/library/api-reference/write-magic/st.write) para depurar variables durante el desarrollo.z
