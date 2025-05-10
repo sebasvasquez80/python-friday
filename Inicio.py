@@ -123,11 +123,14 @@ col1, col2 = st.columns([1, 2])
 
 # Columna izquierda: Foto del estudiante
 with col1:
-    st.image("assets/sebasfoto.jpg", width=200, caption="Estudiante", output_format="JPEG")
+    st.image("assets/equipo.jpg", width=200, caption="Estudiante", output_format="JPEG")
 
 # Columna derecha: Información del estudiante
 with col2:
-    st.markdown('<h3 style="color: #0a0a0a; margin-top: 0px;">Sebastián Vásquez Bustamante</h3>', unsafe_allow_html=True)
+    st.markdown('<h5 style="color: #0a0a0a; margin-top: 0px;">Sebastián Vásquez Bustamante</h5>', unsafe_allow_html=True)
+    st.markdown('<h5 style="color: #0a0a0a; margin-top: 0px;">Sebastián Camilo Jimenez</h5>', unsafe_allow_html=True)
+    st.markdown('<h5 style="color: #0a0a0a; margin-top: 0px;">Johan Sanchez Valencia</h5>', unsafe_allow_html=True)
+    st.markdown('<h5 style="color: #0a0a0a; margin-top: 0px;">Jose Daniel Toro</h5>', unsafe_allow_html=True)
     st.markdown('<p style="margin-top: 10px;">Programa: <span style="color: #0a0a0a; font-weight: bold;">Desarrollo de Software</span></p>', unsafe_allow_html=True)
     st.markdown('<p>Semestre: <span style="color: #0a0a0a; font-weight: bold;">2025-1</span></p>', unsafe_allow_html=True)
     st.markdown('<p>Repositorio: <a href="https://github.com/sebasvasquez80/python-friday.git" target="_blank" style="color: #0a0a0a; font-weight: bold; text-decoration: none;">GitHub</a></p>', unsafe_allow_html=True)

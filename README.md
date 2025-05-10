@@ -63,8 +63,6 @@ Para ejecutar la aplicación, utiliza el siguiente comando en la terminal:
 streamlit run pages/12_🎮_Proyecto\ integrador.py
 ```
 
-La aplicación estará disponible en tu navegador en `http://localhost:8501`.
-
 ## Funcionalidades Principales
 
 La aplicación incluye los siguientes filtros interactivos para explorar el dataset:

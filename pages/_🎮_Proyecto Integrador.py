@@ -24,7 +24,7 @@ df.rename(columns={
 
 # Mostrar tabla completa o una parte
 st.subheader("Vista previa del dataset")
-st.dataframe(df.head(3)) 
+st.dataframe(df.head(20)) 
 
 # 📊 Exploración de datos
 st.header("Exploración de Datos del Dataset")
@@ -46,12 +46,6 @@ st.write(df.tail())
 
 st.subheader("Cantidad total de juegos registrados")
 st.write(len(df))
-
-st.subheader("Cantidad de valores nulos por columna")
-st.write(df.isnull().sum())
-
-st.subheader("Columnas con valores únicos")
-st.write({col: df[col].nunique() for col in df.columns})
 
 st.subheader("Juegos más vendidos globalmente")
 st.write(df[['Nombre', 'Ventas_GLOBALES']].sort_values('Ventas_GLOBALES', ascending=False).head(3))
@@ -85,6 +79,8 @@ st.write(df.groupby('Género')['Ventas_GLOBALES'].mean().sort_values(ascending=F
 
 st.subheader("Ventas globales promedio por plataforma")
 st.write(df.groupby('Plataforma')['Ventas_GLOBALES'].mean().sort_values(ascending=False))
+
+st.header("Filtros del dataset")
 
 if 'platform_filter' not in st.session_state:
     st.session_state['platform_filter'] = False
