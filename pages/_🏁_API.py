@@ -8,8 +8,7 @@ OPENWEATHER_API_KEY = st.secrets["api"]["openweather_key"]
 OPENWEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 # --- Función para obtener datos del clima (con cache) ---
-# El ttl=60 significa que la API solo se llamará cada 60 segundos por ciudad,
-# incluso si el usuario presiona el botón antes, a menos que el botón fuerce un re-ejecute total.
+
 @st.cache_data(ttl=60)
 def get_weather_data(city_name: str, api_key: str):
     params = {
@@ -20,7 +19,7 @@ def get_weather_data(city_name: str, api_key: str):
     }
     try:
         response = requests.get(OPENWEATHER_BASE_URL, params=params)
-        response.raise_for_status() # Lanza un error para códigos de estado HTTP 4xx/5xx
+        response.raise_for_status() 
         data = response.json()
         return data
     except requests.exceptions.RequestException as e:
