@@ -14,8 +14,8 @@ def get_weather_data(city_name: str, api_key: str):
     params = {
         "q": city_name,
         "appid": api_key,
-        "units": "metric", # Para obtener temperaturas en grados Celsius
-        "lang": "es"       # Para descripciones en español
+        "units": "metric", # Para obtener temperaturas
+        "lang": "es"       
     }
     try:
         response = requests.get(OPENWEATHER_BASE_URL, params=params)
