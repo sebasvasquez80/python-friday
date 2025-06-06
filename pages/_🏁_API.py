@@ -3,13 +3,8 @@ import requests
 import pandas as pd
 import plotly.express as px
 
-# --- TU API Key de OpenWeatherMap ---
-# ¡IMPORTANTE! Reemplaza 'TU_API_KEY_AQUI' con la clave que obtuviste de OpenWeatherMap.
-# Para esta demostración, la ponemos aquí directamente.
-# En un proyecto real, se recomienda usar Streamlit secrets (.streamlit/secrets.toml) para mayor seguridad.
-OPENWEATHER_API_KEY = "e7d9ee85aa20d4d42484e78fbb095b2d" # <<== ¡PEGA TU CLAVE AQUÍ!
+OPENWEATHER_API_KEY = st.secrets["api"]["openweather_key"]
 
-# --- URL base de la API de OpenWeatherMap ---
 OPENWEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 # --- Función para obtener datos del clima (con cache) ---
@@ -33,11 +28,9 @@ def get_weather_data(city_name: str, api_key: str):
         st.error("Asegúrate de que la ciudad sea válida y tu API Key de OpenWeatherMap esté correcta y activa.")
         return None
 
-# --- Cuerpo de la Aplicación Streamlit ---
 st.title("☀️ Dashboard de Clima Global (Actualización Manual)")
 st.markdown("Consulta el clima actual de diversas ciudades y actualiza los datos con un botón.")
 
-# Lista de ciudades para seleccionar (puedes ampliarla)
 cities = [
     "Medellín", "Bogotá", "Cali", "Barranquilla", "Cartagena",
     "Londres", "Nueva York", "París", "Tokio", "Sídney", "Buenos Aires", "Madrid", "Ciudad de México"
@@ -49,29 +42,22 @@ if 'selected_city' not in st.session_state:
 
 selected_city_from_widget = st.selectbox("Selecciona una Ciudad:", cities, key="city_selector")
 
-# Si la ciudad seleccionada ha cambiado, actualizamos el estado de la sesión
 if selected_city_from_widget != st.session_state.selected_city:
     st.session_state.selected_city = selected_city_from_widget
-    # Forzamos un re-ejecute completo para cargar los datos de la nueva ciudad
-    # y así el botón de actualizar funcione sobre ella
-    st.rerun() # <== ¡CAMBIO AQUÍ!
+    st.rerun() 
 
-# --- Botón de Actualizar Datos ---
+
 if st.button("Actualizar Datos"):
-    # Cuando se presiona el botón, invalida el caché de la función get_weather_data
-    # Esto fuerza una nueva llamada a la API la próxima vez que se ejecute la función
-    st.cache_data.clear() # ¡Importante para forzar el refresco!
-    st.rerun() # <== ¡CAMBIO AQUÍ!
+    st.cache_data.clear() 
+    st.rerun()
 
-# Condición para avisar si la clave no se ha reemplazado
 if OPENWEATHER_API_KEY == "TU_API_KEY_AQUI":
     st.warning("¡ATENCIÓN! Por favor, reemplaza 'TU_API_KEY_AQUI' en el código por tu clave real de OpenWeatherMap. "
                "Puedes obtenerla registrándote gratuitamente en openweathermap.org.")
-elif st.session_state.selected_city: # Usamos la ciudad del estado de la sesión
+elif st.session_state.selected_city: 
     weather_data = get_weather_data(st.session_state.selected_city, OPENWEATHER_API_KEY)
     
     if weather_data:
-        # Extraer datos clave para mostrar
         temp_celsius = weather_data['main']['temp']
         humidity = weather_data['main']['humidity']
         description = weather_data['weather'][0]['description'].capitalize()
@@ -82,7 +68,6 @@ elif st.session_state.selected_city: # Usamos la ciudad del estado de la sesión
 
         st.markdown(f"### Clima Actual en {st.session_state.selected_city}")
         
-        # Diseño en columnas para la información principal
         col_icon, col_metrics = st.columns([1, 3])
         with col_icon:
             st.image(icon_url, width=80)
@@ -99,7 +84,6 @@ elif st.session_state.selected_city: # Usamos la ciudad del estado de la sesión
         map_df = pd.DataFrame({'lat': [lat], 'lon': [lon]})
         st.map(map_df, zoom=10) # Zoom ajustado para ver la ciudad
         
-        # --- Gráfico de datos actuales (ejemplo: humedad) ---
         st.subheader("Visualización de Datos")
         current_data = pd.DataFrame({
             'Métrica': ['Temperatura (°C)', 'Humedad (%)'],
