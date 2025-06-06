@@ -143,18 +143,57 @@ with tabs[2]:
         st.plotly_chart(fig12, use_container_width=True)
 
 with tabs[3]:
-    st.header("Análisis Detallado por Género")
+    st.header("Exploración Detallada por Género")
 
-    with st.expander("Distribución de Ventas Globales por Género Seleccionado"):
-        generos = df['Género'].unique()
-        # Clave única
-        genero_seleccionado = st.selectbox("Selecciona un Género para ver su distribución de ventas:",
-                                           sorted(generos), key='selectbox_genero_exploracion')
-        df_genero_filtrado = df[df['Género'] == genero_seleccionado]
-        fig_dist_genero = px.histogram(df_genero_filtrado, x='Ventas_GLOBALES', nbins=30,
-                                      title=f"Distribución de Ventas Globales para el Género: {genero_seleccionado}",
-                                      labels={"Ventas_GLOBALES": "Ventas Globales (millones)"})
-        st.plotly_chart(fig_dist_genero, use_container_width=True)
+    generos = df['Género'].unique()
+    genero_seleccionado_tab3 = st.selectbox(
+        "Selecciona un Género para analizar:",
+        sorted(generos),
+        key='selectbox_genero_exploracion_tab3' 
+    )
+
+    df_genero_filtrado = df[df['Género'] == genero_seleccionado_tab3]
+
+    with st.expander(f"**Ventas Totales del Género: {genero_seleccionado_tab3}**"):
+        total_ventas_genero = df_genero_filtrado["Ventas_GLOBALES"].sum()
+        st.metric(label=f"Ventas Globales Totales para {genero_seleccionado_tab3}",
+                  value=f"{total_ventas_genero:,.2f} millones $")
+
+        ventas_por_plataforma_genero = df_genero_filtrado.groupby("Plataforma")["Ventas_GLOBALES"].sum().reset_index()
+        ventas_por_plataforma_genero = ventas_por_plataforma_genero.sort_values("Ventas_GLOBALES", ascending=False)
+        fig_ventas_genero_plataforma = px.bar(
+            ventas_por_plataforma_genero.head(10), 
+            x="Ventas_GLOBALES",
+            y="Plataforma",
+            orientation='h', 
+            title=f"Ventas Globales por Plataforma para el Género: {genero_seleccionado_tab3} (Top 10 Plataformas)",
+            labels={"Ventas_GLOBALES": "Ventas Globales (millones)", "Plataforma": "Plataforma"},
+            color="Plataforma" 
+        )
+        fig_ventas_genero_plataforma.update_layout(yaxis={'categoryorder':'total ascending'}) 
+        st.plotly_chart(fig_ventas_genero_plataforma, use_container_width=True)
+
+    with st.expander(f"**Top 10 Juegos del Género: {genero_seleccionado_tab3}**"):
+        if not df_genero_filtrado.empty: 
+            top_10_juegos_genero = df_genero_filtrado.sort_values(
+                "Ventas_GLOBALES", ascending=False
+            ).head(10)[["Nombre", "Plataforma", "Año", "Ventas_GLOBALES"]]
+
+            st.dataframe(top_10_juegos_genero, hide_index=True) 
+
+            fig_top_10_juegos = px.bar(
+                top_10_juegos_genero,
+                x="Ventas_GLOBALES",
+                y="Nombre",
+                orientation='h',
+                title=f"Top 10 Juegos Más Vendidos en el Género: {genero_seleccionado_tab3}",
+                labels={"Ventas_GLOBALES": "Ventas Globales (millones)", "Nombre": "Nombre del Juego"},
+                color="Plataforma" 
+            )
+            fig_top_10_juegos.update_layout(yaxis={'categoryorder':'total ascending'})
+            st.plotly_chart(fig_top_10_juegos, use_container_width=True)
+        else:
+            st.warning(f"No hay datos de juegos disponibles para el género: {genero_seleccionado_tab3}.")
 
 with tabs[4]:
     st.header("Análisis de Ventas por Editor")
