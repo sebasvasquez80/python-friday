@@ -38,4 +38,5 @@ urllib3==2.3.0
 watchdog==6.0.0
 kaggle==1.5.16
 google-generativeai==0.5.4
-plotly==5.22.0
+plotly==6.1.2
+numpy==2.2.4
